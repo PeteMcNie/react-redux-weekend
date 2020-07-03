@@ -132,7 +132,10 @@ __webpack_require__.r(__webpack_exports__);
 var serverUrl = 'http://localhost:3000/api/v1/football';
 function getDataApi(leagueRequested) {
   console.log('Api: ', leagueRequested);
-  return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get(serverUrl);
+  return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(serverUrl, "/").concat(leagueRequested)).then(function (response) {
+    console.log('client-side api.js: ', response.body);
+    return response.body;
+  });
 }
 
 /***/ }),
