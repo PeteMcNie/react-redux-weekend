@@ -1,8 +1,17 @@
 import React from 'react'
 
+import Title from './Title'
+// import FootballScores from './FootballScores'
+// import WaitIndicator from './WaitIndicator'
+
 const App = () => {
   return (
-    <h1>React development has begun!</h1>
+    <>
+      <Title />
+      {/* <FootballScores>
+        <WaitIndicator />
+      </FootballScores> */}
+    </>
   )
 }
 
