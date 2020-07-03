@@ -15,7 +15,7 @@ export const requestData = () => {
 export const receiveData = (footballData) => {
     return {
         type: RECEIVE_DATA,
-        footballData: footballData
+        footballData
     }
 }
 
@@ -33,8 +33,8 @@ export function getData (leagueRequested) {
         return request
         .get(`api/v1/football/${leagueRequested}`)
         .then(response => {
-            console.log('actions.js: ', response.body)
-            dispatch(receiveData(response.body))
+            console.log('actions.js: ', response.body.competition.name)
+            dispatch(receiveData(response.body.competition.name))
         })
         .catch(err => {
             dispatch(showError(err.message))

@@ -1,16 +1,18 @@
 import React from 'react'
 
 import Title from './Title'
-import FootballScores from './FootballScores'
+import FootballRequest from './FootballRequest'
+import FootballData from './FootballData'
 // import WaitIndicator from './WaitIndicator'
 
 const App = () => {
   return (
     <>
       <Title />
-      <FootballScores>
+      <FootballRequest>
         {/* <WaitIndicator /> */}
-      </FootballScores>
+      </FootballRequest>
+      <FootballData />
     </>
   )
 }

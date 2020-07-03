@@ -131,8 +131,8 @@ function getData(leagueRequested) {
   return function (dispatch) {
     dispatch(requestData());
     return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/v1/football/".concat(leagueRequested)).then(function (response) {
-      console.log('actions.js: ', response.body);
-      dispatch(receiveData(response.body));
+      console.log('actions.js: ', response.body.competition.name);
+      dispatch(receiveData(response.body.competition.name));
     })["catch"](function (err) {
       dispatch(showError(err.message));
     });
@@ -153,23 +153,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Title */ "./client/components/Title.jsx");
-/* harmony import */ var _FootballScores__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FootballScores */ "./client/components/FootballScores.jsx");
+/* harmony import */ var _FootballRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FootballRequest */ "./client/components/FootballRequest.jsx");
+/* harmony import */ var _FootballData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FootballData */ "./client/components/FootballData.jsx");
+
 
 
  // import WaitIndicator from './WaitIndicator'
 
 var App = function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Title__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballScores__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Title__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballRequest__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballData__WEBPACK_IMPORTED_MODULE_3__["default"], null));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
 
 /***/ }),
 
-/***/ "./client/components/FootballScores.jsx":
-/*!**********************************************!*\
-  !*** ./client/components/FootballScores.jsx ***!
-  \**********************************************/
+/***/ "./client/components/FootballData.jsx":
+/*!********************************************!*\
+  !*** ./client/components/FootballData.jsx ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+var FootballData = function FootballData(_ref) {
+  var footBallData = _ref.footBallData;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, footBallData));
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    footBallData: state.footballinfo['leagueInfo']
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(FootballData));
+
+/***/ }),
+
+/***/ "./client/components/FootballRequest.jsx":
+/*!***********************************************!*\
+  !*** ./client/components/FootballRequest.jsx ***!
+  \***********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -207,15 +239,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var FootballScores = /*#__PURE__*/function (_React$Component) {
-  _inherits(FootballScores, _React$Component);
+var FootballRequest = /*#__PURE__*/function (_React$Component) {
+  _inherits(FootballRequest, _React$Component);
 
-  var _super = _createSuper(FootballScores);
+  var _super = _createSuper(FootballRequest);
 
-  function FootballScores() {
+  function FootballRequest() {
     var _this;
 
-    _classCallCheck(this, FootballScores);
+    _classCallCheck(this, FootballRequest);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -239,7 +271,7 @@ var FootballScores = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  _createClass(FootballScores, [{
+  _createClass(FootballRequest, [{
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -255,10 +287,10 @@ var FootballScores = /*#__PURE__*/function (_React$Component) {
     }
   }]);
 
-  return FootballScores;
+  return FootballRequest;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])()(FootballScores));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])()(FootballRequest));
 
 /***/ }),
 
@@ -367,11 +399,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./client/actions/index.js");
+
+
 function footballinfo() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_DATA"]:
+      return {
+        leagueInfo: action.footballData
+      };
+
     default:
       return state;
   }

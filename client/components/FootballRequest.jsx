@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { getData } from '../actions'
 
-class FootballScores extends React.Component {
+class FootballRequest extends React.Component {
     state = {
         name: ''
     }
@@ -26,4 +26,4 @@ render () {
 }
 }
 
-export default connect()(FootballScores)
+export default connect()(FootballRequest)
