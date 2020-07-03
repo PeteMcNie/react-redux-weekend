@@ -90,52 +90,53 @@
 /*!*********************************!*\
   !*** ./client/actions/index.js ***!
   \*********************************/
-/*! exports provided: REQUEST_DATA, requestData, getData */
+/*! exports provided: REQUEST_DATA, RECEIVE_DATA, SHOW_ERROR, requestData, receiveData, showError, getData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REQUEST_DATA", function() { return REQUEST_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_DATA", function() { return RECEIVE_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHOW_ERROR", function() { return SHOW_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestData", function() { return requestData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveData", function() { return receiveData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showError", function() { return showError; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getData", function() { return getData; });
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../api */ "./client/api.js");
+/* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
+/* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_0__);
+// import { getDataApi } from '../api'
 
 var REQUEST_DATA = 'REQUEST_DATA';
+var RECEIVE_DATA = 'RECEIVE_DATA';
+var SHOW_ERROR = 'SHOW_ERROR';
 var requestData = function requestData() {
   return {
     type: REQUEST_DATA
   };
 };
+var receiveData = function receiveData(footballData) {
+  return {
+    type: RECEIVE_DATA,
+    footballData: footballData
+  };
+};
+var showError = function showError(errMessage) {
+  return {
+    type: SHOW_ERROR,
+    errorMesaage: errMessage
+  };
+};
 function getData(leagueRequested) {
-  console.log('Actions: ', leagueRequested);
+  // console.log('Actions: ', leagueRequested)
   return function (dispatch) {
     dispatch(requestData());
-    Object(_api__WEBPACK_IMPORTED_MODULE_0__["getDataApi"])(leagueRequested);
+    return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/v1/football/".concat(leagueRequested)).then(function (response) {
+      console.log('actions.js: ', response.body);
+      dispatch(receiveData(response.body));
+    })["catch"](function (err) {
+      dispatch(showError(err.message));
+    });
   };
-}
-
-/***/ }),
-
-/***/ "./client/api.js":
-/*!***********************!*\
-  !*** ./client/api.js ***!
-  \***********************/
-/*! exports provided: getDataApi */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataApi", function() { return getDataApi; });
-/* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
-/* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_0__);
-
-var serverUrl = 'http://localhost:3000/api/v1/football';
-function getDataApi(leagueRequested) {
-  console.log('Api: ', leagueRequested);
-  return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(serverUrl, "/").concat(leagueRequested)).then(function (response) {
-    console.log('client-side api.js: ', response.body);
-    return response.body;
-  });
 }
 
 /***/ }),
