@@ -2,7 +2,8 @@ import {
     REQUEST_DATA,
     RECEIVE_DATA,
     SHOW_ERROR,
-    SENDING_DATA
+    SENDING_DATA,
+    DATA_POSTED
 } from '../actions'
 
 const loading = (state = false, action) => {
@@ -14,6 +15,7 @@ const loading = (state = false, action) => {
             return true
 
         case RECEIVE_DATA:
+        case DATA_POSTED:
             // console.log("receive data")
             return false
             

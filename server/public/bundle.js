@@ -90,7 +90,7 @@
 /*!*********************************!*\
   !*** ./client/actions/index.js ***!
   \*********************************/
-/*! exports provided: REQUEST_DATA, RECEIVE_DATA, SHOW_ERROR, SENDING_DATA, requestData, receiveData, showError, getData, sendingData, submitData */
+/*! exports provided: REQUEST_DATA, RECEIVE_DATA, SHOW_ERROR, SENDING_DATA, DATA_POSTED, requestData, receiveData, showError, getData, sendingData, dataPosted, submitData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99,11 +99,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_DATA", function() { return RECEIVE_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHOW_ERROR", function() { return SHOW_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SENDING_DATA", function() { return SENDING_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DATA_POSTED", function() { return DATA_POSTED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestData", function() { return requestData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveData", function() { return receiveData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showError", function() { return showError; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getData", function() { return getData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendingData", function() { return sendingData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataPosted", function() { return dataPosted; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "submitData", function() { return submitData; });
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_0__);
@@ -113,6 +115,7 @@ var REQUEST_DATA = 'REQUEST_DATA';
 var RECEIVE_DATA = 'RECEIVE_DATA';
 var SHOW_ERROR = 'SHOW_ERROR';
 var SENDING_DATA = 'SENDING_DATA';
+var DATA_POSTED = 'DATA_POSTED';
 var requestData = function requestData() {
   return {
     type: REQUEST_DATA
@@ -141,18 +144,26 @@ function getData(leagueRequested) {
       dispatch(showError(err.message));
     });
   };
-}
+} // ACCESS TO DB ACTIONS BELOW
+
 var sendingData = function sendingData() {
   return {
     type: SENDING_DATA
   };
 };
+var dataPosted = function dataPosted(postedData1) {
+  return {
+    type: DATA_POSTED,
+    postedData1: postedData1
+  };
+};
 function submitData(dataSubmitted) {
-  console.log('actions.js, data to be sent: ', dataSubmitted);
+  // console.log('actions.js, data to be sent: ',dataSubmitted)
   return function (dispatch) {
     dispatch(sendingData());
     return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:3000/api/v1/database").send(dataSubmitted).then(function (response) {
-      console.log('actions.js: ', response.body); //NEED TO DECIDE WHAT TO DO HERE
+      //console.log('actions.js: ', response.body)
+      dispatch(dataPosted(response.body));
     })["catch"](function (err) {
       dispatch(showError(err.message));
     });
@@ -306,6 +317,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _WaitIndicator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./WaitIndicator */ "./client/components/WaitIndicator.jsx");
 /* harmony import */ var _ErrorMessage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ErrorMessage */ "./client/components/ErrorMessage.jsx");
 /* harmony import */ var _AccessDataBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./AccessDataBase */ "./client/components/AccessDataBase.jsx");
+/* harmony import */ var _PostedData__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./PostedData */ "./client/components/PostedData.jsx");
+
 
 
 
@@ -315,7 +328,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Title__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballRequest__WEBPACK_IMPORTED_MODULE_2__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_WaitIndicator__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorMessage__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballData__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AccessDataBase__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_WaitIndicator__WEBPACK_IMPORTED_MODULE_4__["default"], null)));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Title__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballRequest__WEBPACK_IMPORTED_MODULE_2__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_WaitIndicator__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorMessage__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballData__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AccessDataBase__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_WaitIndicator__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PostedData__WEBPACK_IMPORTED_MODULE_7__["default"], null));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -482,6 +495,42 @@ var FootballRequest = /*#__PURE__*/function (_React$Component) {
 // if (typeof(thing) !== 'undefined') {
 //     do_something_with(thing);
 // }
+
+/***/ }),
+
+/***/ "./client/components/PostedData.jsx":
+/*!******************************************!*\
+  !*** ./client/components/PostedData.jsx ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+var PostedData = function PostedData(_ref) {
+  var postedData2 = _ref.postedData2;
+  return (
+    /*#__PURE__*/
+    //console.log('postedData3: ', postedData3)
+    // const { name, number, email } = postedData3.postedData2
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Name: ", postedData2.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Number: ", postedData2.number), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Email: ", postedData2.email))
+  );
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  console.log(state);
+  return {
+    postedData2: state.postedData
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(PostedData));
 
 /***/ }),
 
@@ -687,6 +736,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _footballinfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./footballinfo */ "./client/reducers/footballinfo.js");
 /* harmony import */ var _errorMessage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./errorMessage */ "./client/reducers/errorMessage.js");
 /* harmony import */ var _loading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./loading */ "./client/reducers/loading.js");
+/* harmony import */ var _postedData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./postedData */ "./client/reducers/postedData.js");
+
 
 
 
@@ -695,7 +746,8 @@ __webpack_require__.r(__webpack_exports__);
   // reducers here, don't forget to import them into this file above
   footballinfo: _footballinfo__WEBPACK_IMPORTED_MODULE_1__["default"],
   errorMessage: _errorMessage__WEBPACK_IMPORTED_MODULE_2__["default"],
-  loading: _loading__WEBPACK_IMPORTED_MODULE_3__["default"]
+  loading: _loading__WEBPACK_IMPORTED_MODULE_3__["default"],
+  postedData: _postedData__WEBPACK_IMPORTED_MODULE_4__["default"]
 }));
 
 /***/ }),
@@ -724,6 +776,7 @@ var loading = function loading() {
       return true;
 
     case _actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_DATA"]:
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["DATA_POSTED"]:
       // console.log("receive data")
       return false;
 
@@ -736,6 +789,36 @@ var loading = function loading() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (loading);
+
+/***/ }),
+
+/***/ "./client/reducers/postedData.js":
+/*!***************************************!*\
+  !*** ./client/reducers/postedData.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./client/actions/index.js");
+
+
+function postedData() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["DATA_POSTED"]:
+      // console.log(action.postedData1)
+      return action.postedData1;
+
+    default:
+      return state;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (postedData);
 
 /***/ }),
 

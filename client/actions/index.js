@@ -5,6 +5,7 @@ export const REQUEST_DATA = 'REQUEST_DATA'
 export const RECEIVE_DATA = 'RECEIVE_DATA'
 export const SHOW_ERROR = 'SHOW_ERROR'
 export const SENDING_DATA = 'SENDING_DATA'
+export const DATA_POSTED = 'DATA_POSTED'
 
 
 export const requestData = () => {
@@ -44,22 +45,31 @@ export function getData (leagueRequested) {
 }
 
 
+// ACCESS TO DB ACTIONS BELOW
+
 export const sendingData = () => {
     return {
         type: SENDING_DATA
     }
 }
 
+export const dataPosted = postedData1 => {
+    return {
+        type: DATA_POSTED,
+        postedData1
+    }
+}
+
 export function submitData (dataSubmitted) {
-    console.log('actions.js, data to be sent: ',dataSubmitted)
+    // console.log('actions.js, data to be sent: ',dataSubmitted)
     return (dispatch) => {
         dispatch(sendingData())
         return request
         .post(`http://localhost:3000/api/v1/database`)
         .send(dataSubmitted)
         .then(response => {
-            console.log('actions.js: ', response.body)
-            //NEED TO DECIDE WHAT TO DO HERE
+            //console.log('actions.js: ', response.body)
+            dispatch(dataPosted(response.body))
         })
         .catch(err => {
             dispatch(showError(err.message))

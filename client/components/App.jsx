@@ -6,6 +6,7 @@ import FootballData from './FootballData'
 import WaitIndicator from './WaitIndicator'
 import ErrorMessage from './ErrorMessage'
 import AccessDataBase from './AccessDataBase'
+import PostedData from './PostedData'
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
       <AccessDataBase>
         <WaitIndicator />
       </AccessDataBase>
+      <PostedData />
     </div>
   )
 }

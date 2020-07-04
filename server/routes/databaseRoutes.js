@@ -14,6 +14,10 @@ router.post('/', (req, res) => {
     db.postData(newData)
         .then(data => {
             console.log('data posted then returned to databaseRoutes.js: ', data)
+            return res.status(200).json(data[0])
+        })
+        .catch(err => {
+            res.status(500).send(err.message)
         })
 })
 
