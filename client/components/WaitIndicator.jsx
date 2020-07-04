@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 const WaitIndicator = props => {
-    console.log(props)
+    // console.log(props)
     return props.loading 
-    ? <img src='/animated-circle.gif' />
+    ? <img className="loading" src='/animated-circle.gif' />
     : null
     
 }

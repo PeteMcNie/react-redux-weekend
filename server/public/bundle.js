@@ -412,8 +412,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var WaitIndicator = function WaitIndicator(props) {
-  console.log(props);
+  // console.log(props)
   return props.loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "loading",
     src: "/animated-circle.gif"
   }) : null;
 };
