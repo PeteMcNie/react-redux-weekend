@@ -1,10 +1,10 @@
 // import { getDataApi } from '../api'
 import request from 'superagent'
 
-
 export const REQUEST_DATA = 'REQUEST_DATA'
 export const RECEIVE_DATA = 'RECEIVE_DATA'
 export const SHOW_ERROR = 'SHOW_ERROR'
+
 
 export const requestData = () => {
     return {
@@ -33,7 +33,7 @@ export function getData (leagueRequested) {
         return request
         .get(`api/v1/football/${leagueRequested}`)
         .then(response => {
-            console.log('actions.js: ', response.body.competition.name)
+            // console.log('actions.js: ', response.body.competition.name)
             dispatch(receiveData(response.body.competition.name))
         })
         .catch(err => {

@@ -131,7 +131,7 @@ function getData(leagueRequested) {
   return function (dispatch) {
     dispatch(requestData());
     return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/v1/football/".concat(leagueRequested)).then(function (response) {
-      console.log('actions.js: ', response.body.competition.name);
+      // console.log('actions.js: ', response.body.competition.name)
       dispatch(receiveData(response.body.competition.name));
     })["catch"](function (err) {
       dispatch(showError(err.message));
@@ -155,16 +155,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Title */ "./client/components/Title.jsx");
 /* harmony import */ var _FootballRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FootballRequest */ "./client/components/FootballRequest.jsx");
 /* harmony import */ var _FootballData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FootballData */ "./client/components/FootballData.jsx");
-/* harmony import */ var _ErrorMessage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ErrorMessage */ "./client/components/ErrorMessage.jsx");
+/* harmony import */ var _WaitIndicator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./WaitIndicator */ "./client/components/WaitIndicator.jsx");
+/* harmony import */ var _ErrorMessage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ErrorMessage */ "./client/components/ErrorMessage.jsx");
 
 
 
- // import WaitIndicator from './WaitIndicator'
+
 
 
 
 var App = function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Title__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballRequest__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorMessage__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballData__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Title__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballRequest__WEBPACK_IMPORTED_MODULE_2__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_WaitIndicator__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorMessage__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballData__WEBPACK_IMPORTED_MODULE_3__["default"], null));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -388,6 +389,38 @@ var Title = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./client/components/WaitIndicator.jsx":
+/*!*********************************************!*\
+  !*** ./client/components/WaitIndicator.jsx ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+var WaitIndicator = function WaitIndicator(props) {
+  console.log(props);
+  return props.loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "/animated-circle.gif"
+  }) : null;
+};
+
+function mapStateToProps(state) {
+  return {
+    loading: state.loading
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(WaitIndicator));
+
+/***/ }),
+
 /***/ "./client/index.js":
 /*!*************************!*\
   !*** ./client/index.js ***!
@@ -404,8 +437,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
-/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/App */ "./client/components/App.jsx");
-/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reducers */ "./client/reducers/index.js");
+/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reducers */ "./client/reducers/index.js");
+/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/App */ "./client/components/App.jsx");
 
 
 
@@ -414,12 +447,41 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE || redux__WEBPACK_IMPORTED_MODULE_3__["compose"];
-var store = Object(redux__WEBPACK_IMPORTED_MODULE_3__["createStore"])(_reducers__WEBPACK_IMPORTED_MODULE_6__["default"], composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_3__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_4__["default"])));
+var store = Object(redux__WEBPACK_IMPORTED_MODULE_3__["createStore"])(_reducers__WEBPACK_IMPORTED_MODULE_5__["default"], composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_3__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_4__["default"])));
 document.addEventListener('DOMContentLoaded', function () {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__["Provider"], {
+  Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__["Provider"], {
     store: store
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_App__WEBPACK_IMPORTED_MODULE_5__["default"], null)), document.getElementById('app'));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_App__WEBPACK_IMPORTED_MODULE_6__["default"], null)), document.getElementById('app'));
 });
+
+/***/ }),
+
+/***/ "./client/reducers/errorMessage.js":
+/*!*****************************************!*\
+  !*** ./client/reducers/errorMessage.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./client/actions/index.js");
+
+
+function errorMessage() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SHOW_ERROR"]:
+      return action.errorMessage;
+
+    default:
+      return state;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (errorMessage);
 
 /***/ }),
 
@@ -465,12 +527,53 @@ function footballinfo() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _footballinfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./footballinfo */ "./client/reducers/footballinfo.js");
+/* harmony import */ var _errorMessage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./errorMessage */ "./client/reducers/errorMessage.js");
+/* harmony import */ var _loading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./loading */ "./client/reducers/loading.js");
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   // reducers here, don't forget to import them into this file above
-  footballinfo: _footballinfo__WEBPACK_IMPORTED_MODULE_1__["default"]
+  footballinfo: _footballinfo__WEBPACK_IMPORTED_MODULE_1__["default"],
+  errorMessage: _errorMessage__WEBPACK_IMPORTED_MODULE_2__["default"],
+  loading: _loading__WEBPACK_IMPORTED_MODULE_3__["default"]
 }));
+
+/***/ }),
+
+/***/ "./client/reducers/loading.js":
+/*!************************************!*\
+  !*** ./client/reducers/loading.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./client/actions/index.js");
+
+
+var loading = function loading() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["REQUEST_DATA"]:
+      return true;
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_DATA"]:
+      return false;
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SHOW_ERROR"]:
+      return false;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (loading);
 
 /***/ }),
 
