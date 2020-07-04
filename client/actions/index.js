@@ -35,8 +35,8 @@ export function getData (leagueRequested) {
         return request
         .get(`http://localhost:3000/api/v1/football/${leagueRequested}`)
         .then(response => {
-            console.log('actions.js: ', response.body.competition.name)
-            dispatch(receiveData(response.body.competition.name))
+            // console.log('actions.js: ', response.body.competition)
+            dispatch(receiveData(response.body.competition))
         })
         .catch(err => {
             dispatch(showError(err.message))

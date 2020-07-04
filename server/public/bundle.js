@@ -138,8 +138,8 @@ function getData(leagueRequested) {
   return function (dispatch) {
     dispatch(requestData());
     return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:3000/api/v1/football/".concat(leagueRequested)).then(function (response) {
-      console.log('actions.js: ', response.body.competition.name);
-      dispatch(receiveData(response.body.competition.name));
+      // console.log('actions.js: ', response.body.competition)
+      dispatch(receiveData(response.body.competition));
     })["catch"](function (err) {
       dispatch(showError(err.message));
     });
@@ -417,12 +417,14 @@ __webpack_require__.r(__webpack_exports__);
 
 var FootballData = function FootballData(_ref) {
   var leagueData3 = _ref.leagueData3;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, leagueData3));
+  //console.log(leagueData3.name)
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, leagueData3.name));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
+  // console.log(' footballData: ', state)
   return {
-    leagueData3: state.footballinfo['leagueData2']
+    leagueData3: state.footballinfo
   };
 };
 
@@ -586,7 +588,7 @@ var Links = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "players"
-      }, "Players"));
+      }, "Info"));
     }
   }]);
 
@@ -608,52 +610,24 @@ var Links = /*#__PURE__*/function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
 
 
-var Players = /*#__PURE__*/function (_React$Component) {
-  _inherits(Players, _React$Component);
+var Players = function Players(_ref) {
+  var matchInfo = _ref.matchInfo;
+  // console.log('Players.jsx: ', matchInfo)
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, matchInfo.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, matchInfo.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, matchInfo.code), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, matchInfo.plan)));
+};
 
-  var _super = _createSuper(Players);
+var mapStateToProps = function mapStateToProps(state) {
+  // console.log('Players.jsx: ', state.footballinfo)
+  return {
+    matchInfo: state.footballinfo
+  };
+};
 
-  function Players() {
-    _classCallCheck(this, Players);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(Players, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Players here")));
-    }
-  }]);
-
-  return Players;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["default"] = (Players);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(Players));
 
 /***/ }),
 
@@ -683,7 +657,7 @@ var PostedData = function PostedData(_ref) {
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-  console.log(state);
+  // console.log(state)
   return {
     postedData2: state.postedData
   };
@@ -871,9 +845,7 @@ function footballinfo() {
 
   switch (action.type) {
     case _actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_DATA"]:
-      return {
-        leagueData2: action.leagueData1
-      };
+      return action.leagueData1;
 
     default:
       return state;

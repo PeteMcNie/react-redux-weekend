@@ -11,11 +11,11 @@ const PostedData = ({ postedData2 }) =>
             <p>Number: {postedData2.number}</p>
             <p>Email: {postedData2.email}</p>
         </div>
-    )
+)
 
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    // console.log(state)
     return {
         postedData2: state.postedData
     }
