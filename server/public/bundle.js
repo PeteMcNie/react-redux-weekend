@@ -90,7 +90,7 @@
 /*!*********************************!*\
   !*** ./client/actions/index.js ***!
   \*********************************/
-/*! exports provided: REQUEST_DATA, RECEIVE_DATA, SHOW_ERROR, requestData, receiveData, showError, getData */
+/*! exports provided: REQUEST_DATA, RECEIVE_DATA, SHOW_ERROR, SENDING_DATA, requestData, receiveData, showError, getData, sendingData, submitData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98,10 +98,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REQUEST_DATA", function() { return REQUEST_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_DATA", function() { return RECEIVE_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHOW_ERROR", function() { return SHOW_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SENDING_DATA", function() { return SENDING_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestData", function() { return requestData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveData", function() { return receiveData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showError", function() { return showError; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getData", function() { return getData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendingData", function() { return sendingData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "submitData", function() { return submitData; });
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_0__);
 // import { getDataApi } from '../api'
@@ -109,6 +112,7 @@ __webpack_require__.r(__webpack_exports__);
 var REQUEST_DATA = 'REQUEST_DATA';
 var RECEIVE_DATA = 'RECEIVE_DATA';
 var SHOW_ERROR = 'SHOW_ERROR';
+var SENDING_DATA = 'SENDING_DATA';
 var requestData = function requestData() {
   return {
     type: REQUEST_DATA
@@ -138,6 +142,150 @@ function getData(leagueRequested) {
     });
   };
 }
+var sendingData = function sendingData() {
+  return {
+    type: SENDING_DATA
+  };
+};
+function submitData(dataSubmitted) {
+  console.log('actions.js, data to be sent: ', dataSubmitted);
+  return function (dispatch) {
+    dispatch(sendingData());
+    return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/v1/database").then(function (response) {
+      console.log('actions.js: ', response.body); //NEED TO DECIDE WHAT TO DO HERE
+    })["catch"](function (err) {
+      dispatch(showError(err.message));
+    });
+  };
+}
+
+/***/ }),
+
+/***/ "./client/components/AccessDataBase.jsx":
+/*!**********************************************!*\
+  !*** ./client/components/AccessDataBase.jsx ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions */ "./client/actions/index.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var AccessDataBase = /*#__PURE__*/function (_React$Component) {
+  _inherits(AccessDataBase, _React$Component);
+
+  var _super = _createSuper(AccessDataBase);
+
+  function AccessDataBase() {
+    var _this;
+
+    _classCallCheck(this, AccessDataBase);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      name: '',
+      number: '',
+      email: ''
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "changeHandlerName", function (evt) {
+      // console.log(evt.target)
+      var value = evt.target.value;
+
+      _this.setState({
+        name: value
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "changeHandlerNumber", function (evt) {
+      // console.log(evt.target)
+      var value = evt.target.value;
+
+      _this.setState({
+        number: value
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "changeHandlerEmail", function (evt) {
+      var value = evt.target.value; // console.log(value)
+
+      _this.setState({
+        email: value
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "submitHandler", function (evnt, dispatch) {
+      evnt.preventDefault();
+      var dataToSubmit = _this.state;
+      console.log('AccessDateBase.jsx data being submitted: ', dataToSubmit);
+      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_2__["submitData"])(dataToSubmit));
+    });
+
+    return _this;
+  }
+
+  _createClass(AccessDataBase, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Name: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        value: this.state.name,
+        onChange: this.changeHandlerName
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Number: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        value: this.state.number,
+        onChange: this.changeHandlerNumber
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Email: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        value: this.state.email,
+        onChange: this.changeHandlerEmail
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick(evnt) {
+          return _this2.submitHandler(evnt, _this2.props.dispatch);
+        }
+      }, "Submit Details")));
+    }
+  }]);
+
+  return AccessDataBase;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])()(AccessDataBase));
 
 /***/ }),
 
@@ -157,6 +305,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FootballData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FootballData */ "./client/components/FootballData.jsx");
 /* harmony import */ var _WaitIndicator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./WaitIndicator */ "./client/components/WaitIndicator.jsx");
 /* harmony import */ var _ErrorMessage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ErrorMessage */ "./client/components/ErrorMessage.jsx");
+/* harmony import */ var _AccessDataBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./AccessDataBase */ "./client/components/AccessDataBase.jsx");
+
 
 
 
@@ -165,7 +315,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Title__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballRequest__WEBPACK_IMPORTED_MODULE_2__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_WaitIndicator__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorMessage__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballData__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Title__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballRequest__WEBPACK_IMPORTED_MODULE_2__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_WaitIndicator__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorMessage__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballData__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AccessDataBase__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_WaitIndicator__WEBPACK_IMPORTED_MODULE_4__["default"], null)));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -188,7 +338,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ErrorMessage = function ErrorMessage(props) {
-  console.log('ErrorMessage.jsx: ', props);
+  //console.log('ErrorMessage.jsx: ', props)
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, props.errorMessage));
 };
 
@@ -569,6 +719,7 @@ var loading = function loading() {
   // console.log('loading reducer called', state, action)
   switch (action.type) {
     case _actions__WEBPACK_IMPORTED_MODULE_0__["REQUEST_DATA"]:
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SENDING_DATA"]:
       // console.log('Request data')
       return true;
 

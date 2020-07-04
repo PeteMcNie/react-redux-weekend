@@ -5,6 +5,7 @@ import FootballRequest from './FootballRequest'
 import FootballData from './FootballData'
 import WaitIndicator from './WaitIndicator'
 import ErrorMessage from './ErrorMessage'
+import AccessDataBase from './AccessDataBase'
 
 const App = () => {
   return (
@@ -15,6 +16,9 @@ const App = () => {
       </FootballRequest>
       <ErrorMessage />
       <FootballData />
+      <AccessDataBase>
+        <WaitIndicator />
+      </AccessDataBase>
     </div>
   )
 }
