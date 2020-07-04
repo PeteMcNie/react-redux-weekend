@@ -188,10 +188,16 @@ __webpack_require__.r(__webpack_exports__);
 
 var ErrorMessage = function ErrorMessage(props) {
   console.log('ErrorMessage.jsx: ', props);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Error"));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, props.errorMessage));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (ErrorMessage);
+function mapStateToProps(state) {
+  return {
+    errorMessage: state.errorMessage
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(ErrorMessage));
 
 /***/ }),
 

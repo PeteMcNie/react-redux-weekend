@@ -5,9 +5,15 @@ const ErrorMessage = (props) => {
     console.log('ErrorMessage.jsx: ', props)
 return (
     <div>
-        <h3>Error</h3>
+        <h3>{props.errorMessage}</h3>
     </div>
 )
 }
 
-export default ErrorMessage
+function mapStateToProps (state) {
+    return {
+        errorMessage: state.errorMessage
+    }
+}
+
+export default connect(mapStateToProps)(ErrorMessage)
