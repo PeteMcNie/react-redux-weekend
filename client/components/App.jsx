@@ -8,6 +8,8 @@ import WaitIndicator from './WaitIndicator'
 import ErrorMessage from './ErrorMessage'
 import AccessDataBase from './AccessDataBase'
 import PostedData from './PostedData'
+import Links from './Links'
+import Players from './Players'
 
 
 const App = () => {
@@ -19,11 +21,12 @@ const App = () => {
       {/* </FootballRequest> */}
       <Route path='/' component={ErrorMessage} />
       <Route path='/' component={FootballData} />
-      <Route path='/' component={AccessDataBase} />
+      <Route exact path='/' component={AccessDataBase} />
         <WaitIndicator />
       {/* </AccessDataBase> */}
-      <Route path='/' component={PostedData} />
-      {/* <Route path='/' component={Links} /> */}
+      <Route exact path='/' component={PostedData} />
+      <Route path='/' component={Links} />
+      <Route path='/players' component={Players} />
     </div>
   )
 }
