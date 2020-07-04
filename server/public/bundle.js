@@ -114,10 +114,10 @@ var requestData = function requestData() {
     type: REQUEST_DATA
   };
 };
-var receiveData = function receiveData(footballData) {
+var receiveData = function receiveData(leagueData1) {
   return {
     type: RECEIVE_DATA,
-    footballData: footballData
+    leagueData1: leagueData1
   };
 };
 var showError = function showError(errMessage) {
@@ -155,16 +155,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Title */ "./client/components/Title.jsx");
 /* harmony import */ var _FootballRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FootballRequest */ "./client/components/FootballRequest.jsx");
 /* harmony import */ var _FootballData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FootballData */ "./client/components/FootballData.jsx");
+/* harmony import */ var _ErrorMessage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ErrorMessage */ "./client/components/ErrorMessage.jsx");
 
 
 
  // import WaitIndicator from './WaitIndicator'
 
+
+
 var App = function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Title__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballRequest__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballData__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Title__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballRequest__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorMessage__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FootballData__WEBPACK_IMPORTED_MODULE_3__["default"], null));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
+
+/***/ }),
+
+/***/ "./client/components/ErrorMessage.jsx":
+/*!********************************************!*\
+  !*** ./client/components/ErrorMessage.jsx ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+var ErrorMessage = function ErrorMessage(props) {
+  console.log('ErrorMessage.jsx: ', props);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Error"));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ErrorMessage);
 
 /***/ }),
 
@@ -184,13 +211,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var FootballData = function FootballData(_ref) {
-  var footBallData = _ref.footBallData;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, footBallData));
+  var leagueData3 = _ref.leagueData3;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, leagueData3));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    footBallData: state.footballinfo['leagueInfo']
+    leagueData3: state.footballinfo['leagueData2']
   };
 };
 
@@ -409,7 +436,7 @@ function footballinfo() {
   switch (action.type) {
     case _actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_DATA"]:
       return {
-        leagueInfo: action.footballData
+        leagueData2: action.leagueData1
       };
 
     default:

@@ -4,9 +4,8 @@ function footballinfo (state = {}, action) {
     switch (action.type) {
         case RECEIVE_DATA: 
             return {
-                leagueInfo: action.footballData
-            }
-            
+               leagueData2: action.leagueData1
+            }  
 
         default:
             return state

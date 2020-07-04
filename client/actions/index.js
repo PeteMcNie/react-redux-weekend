@@ -12,10 +12,10 @@ export const requestData = () => {
     }
 }
 
-export const receiveData = (footballData) => {
+export const receiveData = (leagueData1) => {
     return {
         type: RECEIVE_DATA,
-        footballData
+        leagueData1
     }
 }
 

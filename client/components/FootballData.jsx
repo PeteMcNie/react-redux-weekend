@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-const FootballData = ({ footBallData }) => (
+const FootballData = ({ leagueData3 }) => (
         <div>
-            <p>{footBallData}</p>
+            <p>{leagueData3}</p>
         </div>
     
 )
 
 const mapStateToProps = (state) => {
     return {
-        footBallData: state.footballinfo['leagueInfo']
+        leagueData3: state.footballinfo['leagueData2']
     }
 }
 
