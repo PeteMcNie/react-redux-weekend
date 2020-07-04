@@ -37,7 +37,7 @@ class AccessDataBase extends React.Component {
     submitHandler = (evnt, dispatch) => {
         evnt.preventDefault()
         const dataToSubmit = this.state
-        console.log('AccessDateBase.jsx data being submitted: ', dataToSubmit)
+        // console.log('AccessDateBase.jsx data being submitted: ', dataToSubmit)
         dispatch(submitData(dataToSubmit))
     }
 

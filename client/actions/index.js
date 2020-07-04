@@ -32,7 +32,7 @@ export function getData (leagueRequested) {
     return (dispatch) => {
         dispatch(requestData())
         return request
-        .get(`api/v1/football/${leagueRequested}`)
+        .get(`http://localhost:3000/api/v1/football/${leagueRequested}`)
         .then(response => {
             console.log('actions.js: ', response.body.competition.name)
             dispatch(receiveData(response.body.competition.name))
@@ -55,7 +55,8 @@ export function submitData (dataSubmitted) {
     return (dispatch) => {
         dispatch(sendingData())
         return request
-        .get(`api/v1/database`)
+        .post(`http://localhost:3000/api/v1/database`)
+        .send(dataSubmitted)
         .then(response => {
             console.log('actions.js: ', response.body)
             //NEED TO DECIDE WHAT TO DO HERE

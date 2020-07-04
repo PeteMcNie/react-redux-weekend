@@ -134,7 +134,7 @@ function getData(leagueRequested) {
   // console.log('Actions: ', leagueRequested)
   return function (dispatch) {
     dispatch(requestData());
-    return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/v1/football/".concat(leagueRequested)).then(function (response) {
+    return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:3000/api/v1/football/".concat(leagueRequested)).then(function (response) {
       console.log('actions.js: ', response.body.competition.name);
       dispatch(receiveData(response.body.competition.name));
     })["catch"](function (err) {
@@ -151,7 +151,7 @@ function submitData(dataSubmitted) {
   console.log('actions.js, data to be sent: ', dataSubmitted);
   return function (dispatch) {
     dispatch(sendingData());
-    return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/v1/database").then(function (response) {
+    return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:3000/api/v1/database").send(dataSubmitted).then(function (response) {
       console.log('actions.js: ', response.body); //NEED TO DECIDE WHAT TO DO HERE
     })["catch"](function (err) {
       dispatch(showError(err.message));
@@ -252,8 +252,8 @@ var AccessDataBase = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "submitHandler", function (evnt, dispatch) {
       evnt.preventDefault();
-      var dataToSubmit = _this.state;
-      console.log('AccessDateBase.jsx data being submitted: ', dataToSubmit);
+      var dataToSubmit = _this.state; // console.log('AccessDateBase.jsx data being submitted: ', dataToSubmit)
+
       dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_2__["submitData"])(dataToSubmit));
     });
 
