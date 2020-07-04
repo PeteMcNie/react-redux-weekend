@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 
 import Title from './Title'
 import FootballRequest from './FootballRequest'
@@ -8,19 +9,21 @@ import ErrorMessage from './ErrorMessage'
 import AccessDataBase from './AccessDataBase'
 import PostedData from './PostedData'
 
+
 const App = () => {
   return (
     <div>
-      <Title />
-      <FootballRequest>
+      <Route path='/' component={Title} />
+      <Route path='/' component={FootballRequest} />
+      <Route path='/' component={WaitIndicator} />
+      {/* </FootballRequest> */}
+      <Route path='/' component={ErrorMessage} />
+      <Route path='/' component={FootballData} />
+      <Route path='/' component={AccessDataBase} />
         <WaitIndicator />
-      </FootballRequest>
-      <ErrorMessage />
-      <FootballData />
-      <AccessDataBase>
-        <WaitIndicator />
-      </AccessDataBase>
-      <PostedData />
+      {/* </AccessDataBase> */}
+      <Route path='/' component={PostedData} />
+      {/* <Route path='/' component={Links} /> */}
     </div>
   )
 }
