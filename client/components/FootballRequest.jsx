@@ -21,9 +21,20 @@ render () {
         <div>
             <input value={this.props.value} onChange={this.changeHandler}/>
             <button onClick={() => this.props.dispatch(getData(this.state.value))}>Get league information!</button>
+            {this.props.children}
         </div>
     )
 }
 }
 
 export default connect()(FootballRequest)
+
+// a = new Array(5);
+// // [, , , ,]
+// a[0] // NOT null, NOT undefined
+// {} + []
+// [] + {}
+
+// if (typeof(thing) !== 'undefined') {
+//     do_something_with(thing);
+// }
