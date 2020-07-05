@@ -16,7 +16,7 @@ const FootballData = ({ leagueData3 }) => {
 }
  
 const mapStateToProps = (state) => {
-    console.log(' footballData: ', state)
+    // console.log(' footballData: ', state)
     return {
         leagueData3: state.footballinfo.competition
     }

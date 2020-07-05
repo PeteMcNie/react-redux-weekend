@@ -17,14 +17,19 @@ const App = () => {
   return (
     <div> 
       <Route path='/' component={Title} />
-      <Route path='/' component={FootballRequest} />
-      <Route path='/' component={WaitIndicator} />
-      {/* </FootballRequest> */}
+      {/* USING THE RENDER FUNCTION HERE ENABLES THE WAITINDICATOR TO BE A CHILD OF THE FOOTBALL COMPONENT WHEN USING ROUTES */}
+      <Route path='/' render={() => {
+        return  <FootballRequest>
+                  <WaitIndicator />
+                </FootballRequest>
+      }} />
       <Route path='/' component={ErrorMessage} />
       <Route path='/' component={FootballData} />
-      <Route exact path='/' component={AccessDataBase} />
-        <WaitIndicator />
-      {/* </AccessDataBase> */}
+      <Route exact path='/' render={() => {
+        return  <AccessDataBase>
+                  <WaitIndicator />
+                </AccessDataBase>
+      }} />
       <Route exact path='/' component={PostedData} />
       <Route path='/' component={Links} />
       <Route path='/players' component={Players} />

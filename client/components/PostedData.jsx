@@ -22,7 +22,7 @@ const PostedData = ({ postedData2 }) => {
 
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    // console.log(state)
     return {
         postedData2: state.postedData['postedData1']
     }
