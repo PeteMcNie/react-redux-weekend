@@ -13,8 +13,9 @@ import Players from './Players'
 
 
 const App = () => {
+  // HOW DO I MAKE A COMPONENT A CHILD WHEN USING ROUTES??
   return (
-    <div>
+    <div> 
       <Route path='/' component={Title} />
       <Route path='/' component={FootballRequest} />
       <Route path='/' component={WaitIndicator} />

@@ -107,9 +107,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendingData", function() { return sendingData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataPosted", function() { return dataPosted; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "submitData", function() { return submitData; });
-/* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
-/* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_0__);
-// import { getDataApi } from '../api'
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../api */ "./client/api.js");
+ // import request from 'superagent'
 
 var REQUEST_DATA = 'REQUEST_DATA';
 var RECEIVE_DATA = 'RECEIVE_DATA';
@@ -137,11 +136,12 @@ function getData(leagueRequested) {
   // console.log('Actions: ', leagueRequested)
   return function (dispatch) {
     dispatch(requestData());
-    return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:3000/api/v1/football/".concat(leagueRequested)).then(function (response) {
-      // console.log('actions.js: ', response.body.competition)
-      dispatch(receiveData(response.body.competition));
+    return Object(_api__WEBPACK_IMPORTED_MODULE_0__["getDataApi"])(leagueRequested).then(function (response) {
+      console.log('actions.js: ', response);
+      dispatch(receiveData(response));
     })["catch"](function (err) {
-      dispatch(showError(err.message));
+      // console.log(err   NOT SURE IF THIS WORKS)
+      dispatch(showError(err));
     });
   };
 } // ACCESS TO DB ACTIONS BELOW
@@ -161,13 +161,44 @@ function submitData(dataSubmitted) {
   // console.log('actions.js, data to be sent: ',dataSubmitted)
   return function (dispatch) {
     dispatch(sendingData());
-    return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:3000/api/v1/database").send(dataSubmitted).then(function (response) {
-      //console.log('actions.js: ', response.body)
-      dispatch(dataPosted(response.body));
+    return Object(_api__WEBPACK_IMPORTED_MODULE_0__["postData"])(dataSubmitted).then(function (response) {
+      // console.log('actions.js: ', response)
+      dispatch(dataPosted(response));
     })["catch"](function (err) {
       dispatch(showError(err.message));
     });
   };
+}
+
+/***/ }),
+
+/***/ "./client/api.js":
+/*!***********************!*\
+  !*** ./client/api.js ***!
+  \***********************/
+/*! exports provided: getDataApi, postData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataApi", function() { return getDataApi; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
+/* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
+/* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_0__);
+
+var serverUrl = 'http://localhost:3000/api/v1/football';
+function getDataApi(leagueRequested) {
+  // console.log('Api: ', leagueRequested)
+  return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(serverUrl, "/").concat(leagueRequested)).then(function (response) {
+    // console.log('client-side api.js: ', response.body)
+    return response.body;
+  });
+}
+function postData(dataSubmitted) {
+  return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:3000/api/v1/database").send(dataSubmitted).then(function (response) {
+    console.log('client-side api.js: ', response.body);
+    return response.body;
+  });
 }
 
 /***/ }),
@@ -334,6 +365,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
+  // HOW DO I MAKE A COMPONENT A CHILD WHEN USING ROUTES??
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/",
     component: _Title__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -417,14 +449,19 @@ __webpack_require__.r(__webpack_exports__);
 
 var FootballData = function FootballData(_ref) {
   var leagueData3 = _ref.leagueData3;
+
   //console.log(leagueData3.name)
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, leagueData3.name));
+  if (leagueData3) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, leagueData3.name));
+  } else {
+    return null;
+  }
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-  // console.log(' footballData: ', state)
+  console.log(' footballData: ', state);
   return {
-    leagueData3: state.footballinfo
+    leagueData3: state.footballinfo.competition
   };
 };
 
@@ -616,14 +653,19 @@ __webpack_require__.r(__webpack_exports__);
 
 var Players = function Players(_ref) {
   var matchInfo = _ref.matchInfo;
+
   // console.log('Players.jsx: ', matchInfo)
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, matchInfo.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, matchInfo.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, matchInfo.code), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, matchInfo.plan)));
+  if (matchInfo) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Home Team: ", matchInfo[0].homeTeam.name, " ", matchInfo[0].score.fullTime.homeTeam), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Away Team: ", matchInfo[0].awayTeam.name, " ", matchInfo[0].score.fullTime.awayTeam)));
+  } else {
+    return null;
+  }
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-  // console.log('Players.jsx: ', state.footballinfo)
+  // console.log('Players.jsx: ', state.footballinfo.matches)
   return {
-    matchInfo: state.footballinfo
+    matchInfo: state.footballinfo.matches
   };
 };
 
@@ -648,18 +690,21 @@ __webpack_require__.r(__webpack_exports__);
 
 var PostedData = function PostedData(_ref) {
   var postedData2 = _ref.postedData2;
-  return (
-    /*#__PURE__*/
-    //console.log('postedData3: ', postedData3)
-    // const { name, number, email } = postedData3.postedData2
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Name: ", postedData2.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Number: ", postedData2.number), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Email: ", postedData2.email))
-  );
+
+  // console.log('postedData2: ', postedData2)
+  // const { name, number, email } = postedData3.postedData2
+  // COMPONENT WILL ONLY DISPLAY IF postedData2 IS NOT UNDEFINED
+  if (postedData2) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Name: ", postedData2.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Number: ", postedData2.number), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Email: ", postedData2.email));
+  } else {
+    return null;
+  }
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-  // console.log(state)
+  console.log(state);
   return {
-    postedData2: state.postedData
+    postedData2: state.postedData['postedData1']
   };
 };
 
@@ -944,7 +989,9 @@ function postedData() {
   switch (action.type) {
     case _actions__WEBPACK_IMPORTED_MODULE_0__["DATA_POSTED"]:
       // console.log(action.postedData1)
-      return action.postedData1;
+      return {
+        postedData1: action.postedData1
+      };
 
     default:
       return state;

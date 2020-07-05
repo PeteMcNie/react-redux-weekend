@@ -1,5 +1,5 @@
-// import { getDataApi } from '../api'
-import request from 'superagent'
+import { getDataApi, postData } from '../api'
+// import request from 'superagent'
 
 export const REQUEST_DATA = 'REQUEST_DATA'
 export const RECEIVE_DATA = 'RECEIVE_DATA'
@@ -32,14 +32,14 @@ export function getData (leagueRequested) {
     // console.log('Actions: ', leagueRequested)
     return (dispatch) => {
         dispatch(requestData())
-        return request
-        .get(`http://localhost:3000/api/v1/football/${leagueRequested}`)
+        return getDataApi(leagueRequested)
         .then(response => {
-            // console.log('actions.js: ', response.body.competition)
-            dispatch(receiveData(response.body.competition))
+            console.log('actions.js: ', response)
+            dispatch(receiveData(response))
         })
         .catch(err => {
-            dispatch(showError(err.message))
+            // console.log(err   NOT SURE IF THIS WORKS)
+            dispatch(showError(err))
         })
     }
 }
@@ -64,15 +64,13 @@ export function submitData (dataSubmitted) {
     // console.log('actions.js, data to be sent: ',dataSubmitted)
     return (dispatch) => {
         dispatch(sendingData())
-        return request
-        .post(`http://localhost:3000/api/v1/database`)
-        .send(dataSubmitted)
-        .then(response => {
-            //console.log('actions.js: ', response.body)
-            dispatch(dataPosted(response.body))
-        })
-        .catch(err => {
-            dispatch(showError(err.message))
-        })
+        return postData(dataSubmitted)
+            .then(response => {
+                // console.log('actions.js: ', response)
+                dispatch(dataPosted(response))
+            })
+            .catch(err => {
+                dispatch(showError(err.message))
+            })
     }
 }
